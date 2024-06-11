@@ -28,8 +28,23 @@ export class AppController {
     const where: SQL[] = [eq(usr.workout.userId, userId)];
     const [entities, [countResult]] = await Promise.all([
       this.drizzle.query.usrWorkout.findMany({
+        columns: {
+          id: true,
+          workoutName: true,
+          periodId: true,
+          distance: true,
+          duration: true,
+          endedAt: true,
+          energyBurned: true,
+          startedAt: true,
+          workoutTypeId: true,
+        },
         with: {
-          wrkWorkoutType: true,
+          wrkWorkoutType: {
+            columns: {
+              name: true,
+            },
+          },
         },
         limit: limit + 1,
         where: and(
