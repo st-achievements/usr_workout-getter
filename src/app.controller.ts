@@ -1,6 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { Drizzle, usr } from '@st-achievements/database';
 import { ZParams, ZQuery, ZRes } from '@st-api/core';
+import { Logger } from '@st-api/firebase';
 import { and, count, desc, eq, lte, SQL } from 'drizzle-orm';
 
 import { UserWorkoutDto } from './user-workout.dto.js';
@@ -15,6 +16,8 @@ import {
 })
 export class AppController {
   constructor(private readonly drizzle: Drizzle) {}
+
+  private readonly logger = Logger.create(this);
 
   @ZRes(UserWorkoutDto)
   @Get()
@@ -42,6 +45,9 @@ export class AppController {
         .from(usr.workout)
         .where(and(...where)),
     ]);
+    this.logger.info(
+      `Entities = ${entities.length} - Count - ${countResult?.count}`,
+    );
     const hasNext = entities.length > limit;
     const nextId = hasNext ? entities.pop()?.id : undefined;
     return {
