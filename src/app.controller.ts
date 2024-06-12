@@ -1,4 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import { AssertAuthUser } from '@st-achievements/core';
 import { Drizzle, usr } from '@st-achievements/database';
 import { ZParams, ZQuery, ZRes } from '@st-api/core';
 import { Logger } from '@st-api/firebase';
@@ -10,6 +12,8 @@ import {
   UserWorkoutsParams,
 } from './user-workouts.params.js';
 
+@ApiTags('User Workouts')
+@AssertAuthUser()
 @Controller({
   version: '1',
   path: 'users/:userId/workouts',
