@@ -1,17 +1,15 @@
 import { ParamIntSchema, safe, zDto } from '@st-api/core';
 import { z } from 'zod';
 
-export class UserWorkoutsParams extends zDto(
-  z.object({
-    userId: ParamIntSchema,
-  }),
-) {}
+import { UserWorkoutBaseParamsSchema } from './user-workout-base-params.schema.js';
 
-export const UserWorkoutCursorSchema = z.object({
+export class UserWorkoutsParams extends zDto(UserWorkoutBaseParamsSchema) {}
+
+export const UserWorkoutsCursorSchema = z.object({
   workoutId: z.number(),
 });
 
-export const UserWorkoutCursorParam = z
+export const UserWorkoutsCursorParam = z
   .string()
   .trim()
   .min(1)
@@ -22,14 +20,14 @@ export const UserWorkoutCursorParam = z
     );
     return json;
   })
-  .pipe(UserWorkoutCursorSchema)
+  .pipe(UserWorkoutsCursorSchema)
   .openapi({
     example: Buffer.from(JSON.stringify({ workoutId: 986 })).toString('base64'),
   });
 
-export class UserWorkoutQueryParams extends zDto(
+export class UserWorkoutsQueryParams extends zDto(
   z.object({
-    cursor: UserWorkoutCursorParam.optional(),
+    cursor: UserWorkoutsCursorParam.optional(),
     limit: ParamIntSchema.pipe(z.number().min(1).max(100)).default('10'),
   }),
 ) {}

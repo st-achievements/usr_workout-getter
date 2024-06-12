@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { AchievementsCoreModule } from '@st-achievements/core';
 import { CoreModule } from '@st-api/core';
 
-import { AppController } from './app.controller.js';
+import { UserWorkoutController } from './user-workout/user-workout.controller.js';
 
 @Module({
   imports: [
@@ -12,6 +12,6 @@ import { AppController } from './app.controller.js';
       authentication: true,
     }),
   ],
-  controllers: [AppController],
+  controllers: [UserWorkoutController],
 })
 export class AppModule {}

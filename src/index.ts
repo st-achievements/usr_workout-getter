@@ -12,9 +12,7 @@ const app = StFirebaseApp.create(AppModule, {
 }).withHttpHandler();
 
 export const usr_workout = {
-  list: {
-    getter: {
-      http: app.getHttpHandler(),
-    },
+  getter: {
+    http: app.getHttpHandler(),
   },
 };
