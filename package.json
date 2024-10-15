@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@google-cloud/functions-framework": "~3.4.2",
-    "@st-achievements/core": "~2.0.0",
+    "@st-achievements/core": "~2.0.1",
     "@st-achievements/database": "~2.0.0",
     "@st-api/core": "~6.0.0",
     "@st-api/firebase": "~6.0.0",
