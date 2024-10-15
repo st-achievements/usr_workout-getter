@@ -15,7 +15,8 @@
       ],
       "predeploy": [
         "npm run build"
-      ]
+      ],
+      "runtime": "nodejs20"
     }
   ],
   "emulators": {
