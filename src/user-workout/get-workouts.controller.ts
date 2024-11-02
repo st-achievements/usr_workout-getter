@@ -25,9 +25,14 @@ export class GetWorkoutsController implements Handler {
 
   async handle(
     @ZParams(UserWorkoutsParams) { userId }: UserWorkoutsParams,
-    @ZQuery(UserWorkoutsQueryParams) { limit, cursor }: UserWorkoutsQueryParams,
+    @ZQuery(UserWorkoutsQueryParams)
+    { limit, cursor, periodId, workoutTypeId }: UserWorkoutsQueryParams,
   ): Promise<UserWorkoutsPagedDto> {
-    const where: SQL[] = [eq(usr.workout.userId, userId)];
+    const where: Array<SQL | undefined> = [
+      eq(usr.workout.userId, userId),
+      eq(usr.workout.periodId, Number(periodId)).if(periodId),
+      eq(usr.workout.workoutTypeId, Number(workoutTypeId)).if(workoutTypeId),
+    ];
     const [entities, [countResult]] = await Promise.all([
       this.drizzle.query.usrWorkout.findMany({
         columns: {

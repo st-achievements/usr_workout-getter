@@ -30,6 +30,8 @@ export const UserWorkoutsCursorParam = z
 export const UserWorkoutsQueryParams = z.object({
   cursor: UserWorkoutsCursorParam.optional(),
   limit: ParamIntSchema.pipe(z.number().min(1).max(100)).default('10'),
+  periodId: ParamIntSchema.pipe(z.number().min(1).safe()).optional(),
+  workoutTypeId: ParamIntSchema.pipe(z.number().min(1).safe()).optional(),
 });
 
 export type UserWorkoutsQueryParams = z.output<typeof UserWorkoutsQueryParams>;
